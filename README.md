@@ -74,14 +74,16 @@ In addition, you may also use this section to discuss plans for additional featu
 
 ## Deployment
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub) 
+### Local Deployment
+- Install Python 3.12
+- Clone of the GutHub repo to local environment
+- Create virtual environment with Python 3.12 [to support Django 3.2.25]
+- Create new project 'Boutique' with command: django-admin startproject boutique .
+- Test installation within the browser, running Django server with command: python manage.py runserver
+- Update .gitignore file with *.sqlite3, *.pyc and __pycache__
+- Run the initial migrations by: python manage.py migrate 
 
-- The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  - In the GitHub repository, navigate to the Settings tab 
-  - From the source section drop-down menu, select the Master Branch
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
-
-The live page on the location: https://code-institute-org.github.io/love-running-2.0/index.html 
+- The live page on the location: https://# 
 
 
 ## Credits 
