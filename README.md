@@ -77,7 +77,9 @@ In addition, you may also use this section to discuss plans for additional featu
 ### Local Deployment
 - Install Python 3.12
 - Clone of the GutHub repo to local environment
+- .venv was created with Python 3.13 -> display 'ModuleNotFoundError: No module named 'cgi''
 - Create virtual environment with Python 3.12 [to support Django 3.2.25]
+- Install Django 3.2.25 framework
 - Create new project 'Boutique' with command: django-admin startproject boutique .
 - Test installation within the browser, running Django server with command: python manage.py runserver
 - Update .gitignore file with *.sqlite3, *.pyc and __pycache__

@@ -41,6 +41,12 @@ Primarily, a foundational understanding of the Python environment and Django tem
 - Python: **https://pep8ci.herokuapp.com/**
 
 
+### Bugs and Issues
+
+- When try to setup project IDE raised error ModuleNotFoundError: No module named 'cgi'
+![ModuleNotFoundError](Ωssets-readme/testing/error-image01.png)
+- Resolved with replacing .venv created with Python 3.13 to one with Python 3.12 [DEL - Create]
+
 ### Unfixed Bugs
 
 You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a big variable to consider, paucity of time and difficulty understanding implementation is not a valid reason to leave bugs unfixed.
