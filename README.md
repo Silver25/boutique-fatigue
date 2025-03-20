@@ -62,7 +62,7 @@ In this section, you should go over the different parts of your project, and des
 
 For some/all of your features, you may choose to reference the specific project files that implement them.
 
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+![Admin verify Users email](Ωssets-readme/Users-email-verified.png)
 
 ### Features Left to Implement
 
