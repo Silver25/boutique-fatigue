@@ -10,6 +10,9 @@ Primarily, a foundational understanding of the Python environment and Django tem
 - *Tested Code*:  
 - Project was started as a Python code with Django framework to be used for templating and administration of applications  
 - After every new function, variable or template tag, testing was provided through checking result with running server
+![Unregistered User Login attempt](Ωssets-readme/testing/fake-creds-login-attempt.png)
+![Verification for the Users email](Ωssets-readme/testing/verification-of-email-needed.png)
+![Redirection to temp URL after successful login](Ωssets-readme/testing/redirection-tempurl-after-login.png)
 - *Tested Content*: 
 - Before adding actual content, inserted some test content into HTML file and run it in web browser to ensure that the code is working as expected.
 - *User Interface (UI)*: 
