@@ -1,11 +1,13 @@
 <!-- a link button to open the search bar -->
 <li class="list-inline-item">
+    <!-- 'd-block' and 'd-lg-none' hidden on large screens where instead they'll show up in the top portion of the header -->
     <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center">
             <div><i class="fas fa-search fa-lg"></i></div>
             <p class="my-0">Search</p>
         </div>
     </a>
+    <!-- search form for mobile screens is now in a drop-down menu -->
     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" aria-labelledby="mobile-search">
         <form class="form" method="GET" action="">
             <div class="input-group w-100">

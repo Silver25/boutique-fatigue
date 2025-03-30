@@ -153,11 +153,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # it's a tuple [ a collection which is ordered and unchangeable ]
+# is going to tell Django where all of our static files are located
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-# normally we would also want to supply a static route setting here for
+# normally we would also want to supply a 'static route' setting here for
 # Django's collectstatic utility to work but not going to do that because
 # it will interfere with setting up Amazon Web Services later on.
 
+# where all uploaded media files will go
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

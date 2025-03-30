@@ -3,6 +3,8 @@ html {
 }
 
 body {
+    /* ensure that image stays put in the centre of the page and height calculation to the 
+    body element Which will be 100vh minus 164 pixels the eventual height of our top header*/
     background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
@@ -10,7 +12,8 @@ body {
     font-family: 'Lato';
 }
 
-/* from Bulma */
+/* from 'Bulma' to ensure that font awesome icons always 
+stay perfectly centred and have a consistent size */
 .icon {
     align-items: center;
     display: inline-flex;
@@ -19,14 +22,19 @@ body {
     width: 1.5rem;
 }
 
+/* used throughout this site to maintain consistency 
+with the uppercase font of the logo */
 .logo-font {
     text-transform: uppercase;
 }
 
+/* the logo only takes up as much space as the text requires and no more */
 .main-logo-link {
     width: fit-content;
 }
 
+/* styling consistently throughout the site for buttons so that 
+they match the theme of the shop now button on the homepage */
 .shop-now-button {
     background: black;
     color: white;
@@ -48,6 +56,8 @@ body {
     color: white;
 }
 
+/* text-black and a border-black for the success text info and similar,
+marked as important elements will always use these classes to obey them */
 .text-black {
     color: #000 !important;
 }
@@ -63,14 +73,16 @@ body {
 
 /* -------------------------------- Media Queries */
 
-/* Slightly larger container on xl screens */
+/* larger container on xl screens will widen the default bootstrap container 
+class on extra-large screens just to make better use of the available screen */
 @media (min-width: 1200px) {
   .container {
     max-width: 80%;
   }
 }
 
-/* fixed top navbar only on medium and up */
+/* fixed top navbar only on medium and up - add 164 pixels of padding to header 
+container to push the body down to the bottom of the main page header*/
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
         position: fixed;

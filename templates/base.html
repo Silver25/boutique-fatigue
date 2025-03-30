@@ -1,3 +1,4 @@
+<!-- tag tells Django to load a set of template tags/filters defined in the file static.py (in a folder templatetags in any of the apps of the project) -->
 {% load static %}
 
 <!doctype html>
@@ -67,6 +68,7 @@
 
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
           <!-- account and shopping bag links -->
+           <!-- classes from bootstrap are used to align the lists horizontally with no bullets -->
           <ul class="list-inline list-unstyled text-center text-lg-right my-0">
             <li class="list-inline-item dropdown">
               <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
@@ -77,7 +79,8 @@
                 </div>
               </a>
               
-              <!-- drop-down menu opens when 'my account' link is clicked uses several Django template tags -->
+              <!--  several Django template tags to determine what to display in the drop-down menu when 'my account' link is clicked 
+                account log out / sign up / login URLs are coming from the allauth URLs included in the project level urls.py -->
             <div class="dropdown-menu border-0" aria-labelledby="user-options">
               {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
@@ -116,6 +119,8 @@
             aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <!-- these includes keep the base template nice and clean and also have 
+           those individual HTML files isolated in need to make changes -->
           {% include 'includes/mobile-top-header.html' %}
           {% include 'includes/main-nav.html' %}
         </nav>
