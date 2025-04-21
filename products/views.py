@@ -3,7 +3,7 @@ from django.contrib import messages
 # If the query isn't blank, a special object from Jango.db.models 
 # called Q will generate a search query
 from django.db.models import Q
-from .models import Product
+from .models import Product, Category
 
 # Create your views here.
 
@@ -16,9 +16,15 @@ def all_products(request):
     # return all products from the database using 'Product.objects.all'
     products = Product.objects.all()
     query = None
+    categories = None
 
     # request for the search form
     if request.GET:
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            products = products.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
