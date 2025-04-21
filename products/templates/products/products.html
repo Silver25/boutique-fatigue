@@ -13,10 +13,65 @@
 
 
 {% block content %}
+<!-- a full-page overlay in order to cover up the body's background image -->
+    <div class="overlay"></div>
+
+    <!-- core of this page will be a container fluid with two rows -->
     <div class="container">
+
+        <!-- contain the page title and any currently selected categories -->
         <div class="row">
-            <div class="col">
-                {{ products }}
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Products</h2><!-- a single column with the heading -->
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+
+        <!-- product container contains the products themselves -->
+        <div class="row">
+            <!-- a single column offset by one and itself will be divided into two rows -->
+            <div class="product-container col-10 offset-1">
+                <div class="row mt-1 mb-2"></div>
+
+                <div class="row">
+                    <!-- simple Django for loop to iterate through the product variable -->
+                    {% for product in products %}
+                    <!-- for each product to generate a column inside which will be a bootstrap card -->
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 border-0">
+                                <!-- code for the card layout here comes from the bootstrap documentation -->
+
+                                {% if product.image %}<!-- card top which contains product image -->
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </a>
+                                {% else %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                </a>
+                                {% endif %}
+
+                                <div class="card-body pb-0"><!-- card body which will contain the product name -->
+                                    <p class="mb-0">{{ product.name }}</p>
+                                </div>
+
+                                <div class="card-footer bg-white pt-0 border-0 text-left"><!-- a card footer containing the price and rating -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+                                            {% if product.rating %}
+                                                <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                            {% else %}
+                                                <small class="text-muted">No Rating</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
