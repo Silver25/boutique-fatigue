@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+<!-- page header block from base template with container and a single row in an empty column -->
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<!-- a full-page overlay in order to cover up the body's background image -->
+    <div class="overlay"></div>
+
+    <!-- core of this page will be a container fluid with one row -->
+    <div class="container-fluid">
+
+        <!-- contain the page title and any currently selected categories -->
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+                <div class="image-container my-5">
+                    {% if product.image %}<!-- card top which contains product image -->
+                        <a href="">
+                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        {% else %}
+                        <a href="">
+                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4"></div>
+        </div>
+
+    </div>
+{% endblock %}
