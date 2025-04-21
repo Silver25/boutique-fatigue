@@ -12,6 +12,8 @@ body {
     font-family: 'Lato';
 }
 
+hr { border: 2px solid #000;}
+
 /* from 'Bulma' to ensure that font awesome icons always 
 stay perfectly centred and have a consistent size */
 .icon {
