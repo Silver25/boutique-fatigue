@@ -3,6 +3,8 @@ from django.contrib import messages
 # If the query isn't blank, a special object from Jango.db.models 
 # called Q will generate a search query
 from django.db.models import Q
+# used to annotate the product list with the lowercase name when sorting
+from django.db.models.functions import Lower
 from .models import Product, Category
 
 # Create your views here.
