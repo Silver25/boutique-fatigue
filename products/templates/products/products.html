@@ -147,9 +147,17 @@
     </div>
 {% endblock %}
 
-<!-- jQuery code for the source selector box (dropdown sorting) functionality -->
+
 {% block postloadjs %}
     {{ block.super }}
+    <!-- 'back to top' link functionality -->
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+
+<!-- jQuery code for the source selector box (dropdown sorting) functionality -->
     <script type="text/javascript">
         $('#sort-selector').change(function() {
             var selector = $(this);
