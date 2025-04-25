@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -175,4 +175,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # variables which will calculate delivery costs 
 FREE_DELIVERY_THRESHOLD = 50
-STANDARD_DELIVERY_PRECENTAGE = 10
+STANDARD_DELIVERY_PERCENTAGE = 10
