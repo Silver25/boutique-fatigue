@@ -28,5 +28,5 @@ def add_to_bag(request, item_id):
     # to test form for adding product to bag 'print' the shopping bag
     # from the session in the add_to_bag view, check in the console
     # result when click button 'Add to bag' {'1' : 1, '13' : 3}
-    print(request.session['bag'])
+    # print(request.session['bag'])  = just for the TEST of the Form
     return redirect(redirect_url)
