@@ -31,7 +31,8 @@ def bag_contents(request):
                 product_count += quantity
                 bag_items.append({
                     'item_id': item_id,
-                    'quantity': item_data,
+                    # REPAIRED to display/render Qty selector box with quantity number on bag page
+                    'quantity': quantity,
                     'product': product,
                     'size': size,
                 })
