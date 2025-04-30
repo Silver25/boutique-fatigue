@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-
+<!-- tag tells Django to load a set of template tags/filters defined in the file static.py -->
 {% load static %}
+{% load bag_tools %}
 
 <!-- page header block from base template with container and a single row in an empty column -->
 {% block page_header %}
@@ -96,7 +97,7 @@
 
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0">${{ item.product.price }}</p>
+                                    <p class="my-0">${{ item.product.price|calc_subtotal:item.quantity }}</p>
                                 </td>
                             </tr>
                         {% endfor %}
