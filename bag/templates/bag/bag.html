@@ -143,3 +143,9 @@
     </div>
 
 {% endblock %}
+
+<!-- JS loader from HTML file to use button increment/decrement functionality for product 'Qty' input box -->
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
+{% endblock %}
