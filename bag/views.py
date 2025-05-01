@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
 
 from products.models import Product
@@ -16,7 +16,7 @@ def add_to_bag(request, item_id):
     """ Add a quantity of the specified product to the shopping bag """
 
     # for message strings to work use 'product'
-    product = Product.objects.get(pk=item_id)
+    product = get_object_or_404(Product, pk=item_id)
 
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
@@ -73,7 +73,7 @@ def adjust_bag(request, item_id):
     """
 
     # for message strings to work use 'product'
-    product = Product.objects.get(pk=item_id)
+    product = get_object_or_404(Product, pk=item_id)
 
     quantity = int(request.POST.get('quantity'))
     size = None
