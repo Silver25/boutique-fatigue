@@ -15,7 +15,7 @@ def view_bag(request):
 def add_to_bag(request, item_id):
     """ Add a quantity of the specified product to the shopping bag """
 
-    # to demonstrate how these messages will work use 'product'
+    # for message strings to work use 'product'
     product = Product.objects.get(pk=item_id)
 
     quantity = int(request.POST.get('quantity'))
@@ -71,6 +71,9 @@ def adjust_bag(request, item_id):
     """ Adjust the quantity of the specified product to the specified amount
     (views to handle updating product quantities and removing them from the bag entirely)
     """
+
+    # for message strings to work use 'product'
+    product = Product.objects.get(pk=item_id)
 
     quantity = int(request.POST.get('quantity'))
     size = None
