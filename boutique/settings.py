@@ -82,6 +82,8 @@ TEMPLATES = [
     },
 ]
 
+# to demonstrate how these messages will work use this storage method
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
