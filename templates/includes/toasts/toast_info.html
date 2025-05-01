@@ -1,6 +1,7 @@
 <!-- toasts - feature of bootstrap gives some nice clean notifications to customize -->
 <div class="toast custom-toast rounded-0 border-top 0" data-autohide="false">
-    <div class="arrow-up arrow-info"></div>
+
+    <div class="arrow-up arrow-info"></div><!-- header of the message window with X to close -->
     <div class="w-100 toast-capper bg-info"></div>
     <div class="toast-header bg-white text-dark">
         <strong class="mr-auto">Alert!</strong>
@@ -8,7 +9,9 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+
     <div class="toast-body bg-white">
         {{ message }}
     </div>
+    
 </div>
