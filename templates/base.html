@@ -1,4 +1,4 @@
-<!-- tag tells Django to load a set of template tags/filters defined in the file static.py 
+<!-- template tag tells Django to load a set of template tags/filters defined in the file static.py 
  (in a folder templatetags in any of the apps of the project), 'Django template logic' -->
 {% load static %}
 
@@ -102,6 +102,7 @@
                   <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                   <p class="my-0">
                     {% if grand_total %}
+                    <!-- template variable with double curly brackets -->
                       ${{ grand_total|floatformat:2 }}
                     {% else %}
                       $0.00

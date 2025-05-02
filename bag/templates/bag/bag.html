@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-<!-- tag tells Django to load a set of template tags/filters defined in the file static.py -->
+<!-- template tag tells Django to load a set of template tags/filters defined in the file static.py -->
 {% load static %}
 {% load bag_tools %}
 
@@ -47,6 +47,7 @@
                         {% for item in bag_items %}
                             <tr>
                                 <td class="p-3 w-25">
+                                    <!-- template variable with double curly brackets -->
                                     <img class="img-fluid rounded" src="{{ item.product.image.url }}">
                                 </td>
                                 <td class="py-3">
