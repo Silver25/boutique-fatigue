@@ -123,13 +123,14 @@ def remove_from_bag(request, item_id):
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
             messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+        # If there is no size, removing the item is as simple as popping it out of the bag
         else:
             bag.pop(item_id)
             messages.success(request, f'Removed {product.name} from your bag')
 
         request.session['bag'] = bag
         return HttpResponse(status=200)
-
+    # to catch any exceptions that happen in order to return a 500 server error (as an part of 'try' block)
     except Exception as e:
         messages.error(request, f'Error removing item: {e}')
         return HttpResponse(status=500)
