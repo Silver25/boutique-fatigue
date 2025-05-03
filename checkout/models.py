@@ -24,6 +24,41 @@ class Order(models.Model):
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
 
+    # with an underscore by convention to indicate it's a private method which will only be used inside this class
+    def _generate_order_number(self):
+        """
+        Generate a random, unique order number using UUID
+        """
+        # to generate a random string of 32 characters we can use as an order number
+        return uuid.uuid4().hex.upper()
+
+    def update_total(self):
+        """
+        Update grand total each time a line item is added,
+        accounting for delivery costs.
+        """
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum']
+        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
+            self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
+        else:
+            self.delivery_cost = 0
+        self.grand_total = self.order_total + self.delivery_cost
+        self.save()
+
+    def save(self, *args, **kwargs):
+        """
+        Override the original save method to set the order number
+        if it hasn't been set already.
+        """
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
+        super().save(*args, **kwargs)
+
+    # standard string method, returning just the order number for the order model
+    def __str__(self):
+        return self.order_number
+
+
 # an individual shopping bag item relating to a specific order 'order_number' and referencing the product itself
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
@@ -31,3 +66,15 @@ class OrderLineItem(models.Model):
     product_size = models.CharField(max_length=2, null=True, blank=True) # XS, S, M, L, XL
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+
+    def save(self, *args, **kwargs):
+        """
+        Override the original save method to set the lineitem total
+        and update the order total.
+        """
+        self.lineitem_total = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
+    # the SKU of the product along with the order number it's part of for each order line item
+    def __str__(self):
+        return f'SKU {self.product.sku} on order {self.order.order_number}'
