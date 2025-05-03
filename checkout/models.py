@@ -1,4 +1,11 @@
+import uuid  # used to generate the order number
+
 from django.db import models
+from django.db.models import Sum
+from django.conf import settings
+
+# since the order line item model has a foreign key to it
+from products.models import Product
 
 # Postcode and County will not be required as those components don't exist in every Country
 class Order(models.Model):
