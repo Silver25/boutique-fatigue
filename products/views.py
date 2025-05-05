@@ -61,8 +61,12 @@ def all_products(request):
 
     current_sorting = f'{sort}_{direction}'
 
-    # for products to be available in the template
-    # to send some things back to the template
+    # for products to be available in the template to send some things back to the template
+    # A Context is a dictionary with variable names as the key and their values as the value. 
+    # If context for the 'home/index.html' template looks like: {myvar1: 101, myvar2: 102}, 
+    # when it's passed this context to the template render method, {{ myvar1 }} would be replaced with 101 
+    # and {{ myvar2 }} with 102 in template. 
+    # A Context object is the context in which the template is being rendered.
     context = {
         'products': products,
         'search_term': query,

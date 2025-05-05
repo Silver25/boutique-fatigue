@@ -49,6 +49,11 @@ def bag_contents(request):
         
     # context processor dictionary
     # add all these items to the context so they'll be available in templates across the site
+    # A Context is a dictionary with variable names as the key and their values as the value. 
+    # If context for the 'home/index.html' template looks like: {myvar1: 101, myvar2: 102}, 
+    # when it's passed this context to the template render method, {{ myvar1 }} would be replaced with 101 
+    # and {{ myvar2 }} with 102 in template. 
+    # A Context object is the context in which the template is being rendered.
     context = {
         'bag_items': bag_items,
         'total': total,

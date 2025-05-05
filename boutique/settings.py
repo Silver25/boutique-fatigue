@@ -62,6 +62,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'boutique.urls'
 
+# Context Processor which take in an HttpRequest object and return a dictionary (similar to the Context object in view.py). 
+# The dictionary (context) returned by the Context Processor is merged into the context passed in by the user by Django.
+# A use case for a Context Processor is when user always want to insert certain variables inside template 
+# (for example the location of the user could be a candidate). 
+# Instead of writing code to insert it in each view, a context processor ca be writen for it and add it to the TEMPLATE_CONTEXT_PROCESSORS settings in settings.py.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -76,7 +81,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',  # required by allauth - do NOT remove
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # to access the bag contents in any template across the entire site it makes available
+                # it makes available to access the bag contents in any template across the entire site
                 'bag.contexts.bag_contents',
             ],
         },

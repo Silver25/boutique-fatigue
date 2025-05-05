@@ -18,7 +18,7 @@ class OrderForm(forms.ModelForm):
         """
         # call the default init method to set the form up as it would be by default
         super().__init__(*args, **kwargs)
-        # created a dictionary of placeholders
+        # created a dictionary of placeholders, fields in form
         placeholders = {
             'full_name': 'Full Name',
             'email': 'Email Address',
