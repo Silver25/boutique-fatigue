@@ -29,6 +29,7 @@
                         </a>
                         {% else %}
                         <a href="">
+                            <!-- needs 'django.template.context_processors.media' included in settings.py -->
                             <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
                         </a>
                     {% endif %}

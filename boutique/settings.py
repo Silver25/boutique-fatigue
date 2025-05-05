@@ -85,6 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',  # required by allauth - do NOT remove
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # without it the media URL template tag '{{ MEDIA_URL }}noimage.png' doesn't work
+                'django.template.context_processors.media',
                 # it makes available to access the bag contents in any template across the entire site
                 'bag.contexts.bag_contents',
             ],
