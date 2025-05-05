@@ -50,6 +50,7 @@ Primarily, a foundational understanding of the Python environment and Django tem
 - When try to setup project IDE raised error ModuleNotFoundError: No module named 'cgi'
 ![ModuleNotFoundError](Ωssets-readme/testing/error-image01.png)
 - Resolved with replacing .venv created with Python 3.13 to one with Python 3.12 [DEL - Create]
+![Pip can't create/update 'requirements' file couse of Win protected folder](Ωssets-readme/testing/error-image02.png)
 
 ### Unfixed Bugs
 
