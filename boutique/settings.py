@@ -66,6 +66,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'boutique.urls'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # Context Processor which take in an HttpRequest object and return a dictionary (similar to the Context object in view.py). 
 # The dictionary (context) returned by the Context Processor is merged into the context passed in by the user by Django.
 # A use case for a Context Processor is when user always want to insert certain variables inside template 
