@@ -23,6 +23,8 @@ Primarily, a foundational understanding of the Python environment and Django tem
 - Tested all navigation elements like menus, buttons, and links. Ensured they lead to the correct destination pages and function smoothly.
 - *Forms & Functionality*: 
 - Tested form (contact) to be sure it submit data correctly, provide clear error messages for invalid inputs, and follow expected functionalities, sending data.
+- Tested Stripe 'payment intent' with 'print' function, refresh page and get result of the function/view in Terminal:
+![Stripe 'payment intent' test print](Ωssets-readme/stripe-payment-intent-test.png)
 - *Content Accuracy*: 
 - Reviewed all website content for accuracy, grammar, and spelling mistakes. Verified that descriptions and other information are up-to-date and consistent.
 - *Responsiveness*: 
