@@ -7,6 +7,14 @@ from checkout.webhook_handler import StripeWH_Handler
 
 import stripe
 
+'''
+    In order to test webhooks, website needs a URL that Stripe can access to
+    send webhooks to and from. To get this functionality in local IDE environment,
+    we'll use the Stripe CLI in the terminal of VS Code.
+    The installation guide for Stripe CLI on Windows:
+    https://codeinstitute.s3.eu-west-1.amazonaws.com/vscode-migration-pdf-guides/stripe-cli-installation-guide-windows.pdf
+'''
+
 
 @require_POST
 @csrf_exempt
