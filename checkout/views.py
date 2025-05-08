@@ -14,7 +14,7 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    if request.method == 'POST':
+    if request.method == 'POST':  # check whether the method is post to process data
         bag = request.session.get('bag', {})
 
         form_data = {
@@ -29,19 +29,22 @@ def checkout(request):
             'county': request.POST['county'],
         }
         order_form = OrderForm(form_data)
+        # similar to what is used in the context processor
+        # checking if form details are valid and send data to db
         if order_form.is_valid():
             order = order_form.save()
             for item_id, item_data in bag.items():
                 try:
-                    product = Product.objects.get(id=item_id)
-                    if isinstance(item_data, int):
+                    product = Product.objects.get(id=item_id)  # calling/checking the Product from the bag
+                    if isinstance(item_data, int):  # if is an integer is an item that doesn't have sizes
                         order_line_item = OrderLineItem(
                             order=order,
                             product=product,
-                            quantity=item_data,
+                            quantity=item_data,  # quantity will just be the item data
                         )
                         order_line_item.save()
-                    else:
+                    else:  # if the item has sizes
+                        # it iterate through each size and create a line item accordingly
                         for size, quantity in item_data['items_by_size'].items():
                             order_line_item = OrderLineItem(
                                 order=order,
@@ -50,14 +53,15 @@ def checkout(request):
                                 product_size=size,
                             )
                             order_line_item.save()
-                except Product.DoesNotExist:
-                    messages.error(request, (
+                except Product.DoesNotExist:  # in case a product isn't found
+                    messages.error(request, (  # it will add an error message
                         "One of the products in your bag wasn't found in our database. "
                         "Please call us for assistance!")
                     )
-                    order.delete()
-                    return redirect(reverse('view_bag'))
+                    order.delete()  # delete the empty order
+                    return redirect(reverse('view_bag'))  # return the user to the shopping bag page
 
+            # if the user wanted to save profile info to the session and redirect to a new page
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:

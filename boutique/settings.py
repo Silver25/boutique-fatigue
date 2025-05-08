@@ -69,10 +69,10 @@ ROOT_URLCONF = 'boutique.urls'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Context Processor which take in an HttpRequest object and return a dictionary (similar to the Context object in view.py). 
+# Context Processor which take in an HttpRequest object and return a dictionary (similar to the Context object in view.py).
 # The dictionary (context) returned by the Context Processor is merged into the context passed in by the user by Django.
-# A use case for a Context Processor is when user always want to insert certain variables inside template 
-# (for example the location of the user could be a candidate). 
+# A use case for a Context Processor is when user always want to insert certain variables inside template
+# (for example the location of the user could be a candidate).
 # Instead of writing code to insert it in each view, a context processor ca be writen for it and add it to the TEMPLATE_CONTEXT_PROCESSORS settings in settings.py.
 TEMPLATES = [
     {
@@ -194,7 +194,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# variables which will calculate delivery costs 
+# variables which will calculate delivery costs
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 

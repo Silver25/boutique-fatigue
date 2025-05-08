@@ -76,6 +76,7 @@ class OrderLineItem(models.Model):
         self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
-    # the SKU of the product along with the order number it's part of for each order line item
-    def __str__(self):
+    # the SKU of the product along with the order number it's part
+    # of for each order line item
+    def __str__(self):  # string representation
         return f'SKU {self.product.sku} on order {self.order.order_number}'
