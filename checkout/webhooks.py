@@ -18,6 +18,14 @@ import stripe
 
 @require_POST
 @csrf_exempt
+# having an if statement with a hundred different
+# Stripe event possibilities could get unruly really quickly
+#
+# pass the event along to webhook handler to have a nice
+# convenient method written up for each type of webhook
+#
+# using a class to make work reusable such that
+# could import it into other projects
 def webhook(request):
     """Listen for webhooks from Stripe"""
     # Setup
@@ -44,6 +52,22 @@ def webhook(request):
     except Exception as e:
         return HttpResponse(content=e, status=400)
 
-    # print and return result to test stripe webhooks on local level
-    print('Success!')
-    return HttpResponse(status=200)
+    # Set up a webhook handler
+    handler = StripeWH_Handler(request)
+
+    # Map webhook events to relevant handler functions
+    event_map = {
+        'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
+        'payment_intent.payment_failed': handler.handle_payment_intent_payment_failed,
+    }
+
+    # Get the webhook type from Stripe
+    event_type = event['type']
+
+    # If there's a handler for it, get it from the event map
+    # Use the generic one by default
+    event_handler = event_map.get(event_type, handler.handle_event)
+
+    # Call the event handler with the event
+    response = event_handler(event)
+    return response
