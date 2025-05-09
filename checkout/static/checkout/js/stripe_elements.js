@@ -48,12 +48,16 @@ card.addEventListener('change', function (event) {
 var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(ev) {
+    // when the user clicks the submit button the event listener prevents the form from submitting ...
     ev.preventDefault();
+    // ... and instead disables the card element ...
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
+    /// ... and triggers the loading overlay
     $('#loading-overlay').fadeToggle(100);
 
+    // variables to capture the form data we can't put in the payment intent here ...
     var saveInfo = Boolean($('#id-save-info').attr('checked'));
     // From using {% csrf_token %} in the form
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -64,10 +68,13 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
-    // posting to the URL and that we want to post the post data above
+    // ... and instead post it to the cache_checkout_data view, views.py ...
+    //
+    // Posting to the URL and that we want to post the post data above
     // to wait for a response that the payment intent was updated before 
     // calling the confirmed payment method
     $.post(url, postData).done(function () {
+        // ... call the confirm card payment method from stripe ...
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -101,6 +108,8 @@ form.addEventListener('submit', function(ev) {
                 }
             },
         }).then(function(result) {
+            // ... if there's an error in the form then the loading overlay will be hidden
+            // the card element re-enabled and the error displayed for the user
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
@@ -115,9 +124,16 @@ form.addEventListener('submit', function(ev) {
                 $('#submit-button').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
+                    // ... if everything is ok with all stripe process submit the form
                     form.submit();
                 }
             }
         });
+    // will be triggered if view sends a 400 bad request response
+    // ... anything goes wrong posting the data to our view it will reload the page and
+    // display the error without ever charging the user
+    }).fail(function () {
+        // just reload the page, the error will be in django messages
+        location.reload();
     })
 });
