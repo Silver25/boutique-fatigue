@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
@@ -13,6 +14,8 @@ import json
 
 # a way to determine whether the user had the save info box checked,
 # in the payment intent couse confirm card payment method doesn't support it
+# from the stripe_element.js '$.post(url, postData)'
+# view updates the payment intent and returns a 200 response
 @require_POST
 def cache_checkout_data(request):
     try:
