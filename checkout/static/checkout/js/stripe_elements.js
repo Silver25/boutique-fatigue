@@ -56,6 +56,10 @@ form.addEventListener('submit', function(ev) {
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
+            // since the payment intent .succeeded webhook will be coming from stripe 
+            // and not from our own code into the webhook handler, we need to somehow 
+            // stuff the form data into the payment intent object so we can retrieve 
+            // it once we receive the webhook, to not get lost in transfer
             billing_details: {
                 name: $.trim(form.full_name.value),
                 phone: $.trim(form.phone_number.value),
