@@ -30,6 +30,10 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
+        # print out the payment intent coming from stripe once the user
+        # makes a payment with new created metadata attached
+        intent = event.data.object
+        print(intent)
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
