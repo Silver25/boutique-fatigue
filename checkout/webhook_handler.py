@@ -53,6 +53,9 @@ class StripeWH_Handler:
 
         # if the order doesn't exist in the database
         order_exists = False
+        # if view is slow and hasn't created the order by the time the webhook comes from stripe,
+        # webhook handler can create order itself, saving double the order in db
+        # one of the downfalls of asynchronous applications where multiple processes are happening at once
         attempt = 1
         while attempt <= 5:
             try:
