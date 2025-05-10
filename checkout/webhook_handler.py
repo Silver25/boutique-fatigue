@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+import stripe
 
 '''
     If the user somehow intentionally or accidentally closes the browser window 
@@ -33,6 +34,19 @@ class StripeWH_Handler:
         # print out the payment intent coming from stripe once the user
         # makes a payment with new created metadata attached
         intent = event.data.object
+        pid = intent.id
+        bag = intent.metadata.bag
+        save_info = intent.metadata.save_info
+
+        # Get the Charge object
+        stripe_charge = stripe.Charge.retrieve(
+            intent.latest_charge
+        )
+
+        billing_details = stripe_charge.billing_details # updated
+        shipping_details = intent.shipping
+        grand_total = round(stripe_charge.amount / 100, 2) # updated
+
         print(intent)
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
