@@ -24,25 +24,27 @@ class OrderForm(forms.ModelForm):
             'full_name': 'Full Name',
             'email': 'Email Address',
             'phone_number': 'Phone Number',
-            'country': 'Country',
             'postcode': 'Postal Code',
             'town_or_city': 'Town or City',
             'street_address1': 'Street Address 1',
             'street_address2': 'Street Address 2',
-            'county': 'County',
+            'county': 'County, State or Locality',
         }
 
         # setting the autofocus attribute on the first field
         self.fields['full_name'].widget.attrs['autofocus'] = True
         # iterate through the forms fields
         for field in self.fields:
-            # adding a star to the placeholder if it's a required field
-            if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *'
-            else:
-                placeholder = placeholders[field]
-            # setting all the placeholder attributes to their values in the dictionary above
-            self.fields[field].widget.attrs['placeholder'] = placeholder
+            # if the field is not equal to country
+            # (else it'll throw an error because it can't find the 'country' key)
+            if field != 'country':
+                # adding a star to the placeholder if it's a required field
+                if self.fields[field].required:
+                    placeholder = f'{placeholders[field]} *'
+                else:
+                    placeholder = placeholders[field]
+                # setting all the placeholder attributes to their values in the dictionary above
+                self.fields[field].widget.attrs['placeholder'] = placeholder
             # adding a CSS class
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             # removing the form fields labels given the placeholders are now set
