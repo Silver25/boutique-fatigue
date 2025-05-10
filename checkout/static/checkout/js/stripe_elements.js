@@ -125,6 +125,8 @@ form.addEventListener('submit', function(ev) {
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     // ... if everything is ok with all stripe process submit the form
+                    // comment out the form submission, simulates the form not
+                    // to be submitted, and raise the error, 'handle only in webhook'
                     form.submit();
                 }
             }
