@@ -38,6 +38,7 @@ class StripeWH_Handler:
         # print out the payment intent coming from stripe once the user
         # makes a payment with new created metadata attached
         intent = event.data.object
+        # print(intent)
         pid = intent.id
         bag = intent.metadata.bag
         save_info = intent.metadata.save_info
