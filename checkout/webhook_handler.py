@@ -52,9 +52,29 @@ class StripeWH_Handler:
             if value == "":
                 shipping_details.address[field] = None
 
+        order_exists = False
+        try:
+            order = Order.objects.get(
+                full_name__iexact=shipping_details.name,
+                email__iexact=shipping_details.email,
+                phone_number__iexact=shipping_details.phone,
+                country__iexact=shipping_details.country,
+                postcode__iexact=shipping_details.postal_code,
+                town_or_city__iexact=shipping_details.city,
+                street_address1__iexact=shipping_details.line1,
+                street_address2__iexact=shipping_details.line2,
+                county__iexact=shipping_details.state,
+                grand_total=grand_total,
+            )
+            order_exists = True
+            return HttpResponse(
+                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                status=200)
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
+
 
     def handle_payment_intent_payment_failed(self, event):
         """
