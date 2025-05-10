@@ -55,7 +55,12 @@ def checkout(request):
         # similar to what is used in the context processor
         # checking if form details are valid and send data to db
         if order_form.is_valid():
-            order = order_form.save()
+            # prevent multiple save events from being executed on the database
+            order = order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+            order.original_bag = json.dumps(bag)
+            order.save()
             for item_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(id=item_id)  # calling/checking the Product from the bag
