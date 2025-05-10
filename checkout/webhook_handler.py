@@ -66,10 +66,52 @@ class StripeWH_Handler:
                 county__iexact=shipping_details.state,
                 grand_total=grand_total,
             )
+            # If the order is found is set order exists to true
             order_exists = True
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
+
+        # If order doesn't exist let's create it just like it would if the form were submitted
+        except Order.DoesNotExist:
+            try:
+                order = Order.objects.create(
+                    full_name=shipping_details.name,
+                    email=shipping_details.email,
+                    phone_number=shipping_details.phone,
+                    country=shipping_details.country,
+                    postcode=shipping_details.postal_code,
+                    town_or_city=shipping_details.city,
+                    street_address1=shipping_details.line1,
+                    street_address2=shipping_details.line2,
+                    county=shipping_details.state,
+                    grand_total=grand_total,
+                )
+                for item_id, item_data in json.loads(bag).items():
+                    product = Product.objects.get(id=item_id)
+                    if isinstance(item_data, int):
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=item_data,
+                        )
+                        order_line_item.save()
+                    else:
+                        for size, quantity in item_data['items_by_size'].items():
+                            order_line_item = OrderLineItem(
+                                order=order,
+                                product=product,
+                                quantity=quantity,
+                                product_size=size,
+                            )
+                            order_line_item.save()
+            except Exception as e:
+                # if anything goes wrong the order will be deleted
+                if order:
+                    order.delete()
+                return HttpResponse(
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    status=500)
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
