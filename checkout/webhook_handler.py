@@ -1,4 +1,9 @@
 from django.http import HttpResponse
+from .models import Order, OrderLineItem
+from products.models import Product
+
+import json
+import time
 import stripe
 
 '''
@@ -95,7 +100,7 @@ class StripeWH_Handler:
                     street_address1=shipping_details.line1,
                     street_address2=shipping_details.line2,
                     county=shipping_details.state,
-                    grand_total=grand_total,
+                    grand_total=grand_total, # NOT in lesson video
                     original_bag=bag,
                     stripe_pid=pid,
                 )
