@@ -12,7 +12,6 @@ import stripe
     Webhooks are like the 'signals' Django sends each time a model is saved or deleted.
 '''
 
-
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
 
@@ -52,28 +51,36 @@ class StripeWH_Handler:
             if value == "":
                 shipping_details.address[field] = None
 
+        # if the order doesn't exist in the database
         order_exists = False
-        try:
-            order = Order.objects.get(
-                full_name__iexact=shipping_details.name,
-                email__iexact=shipping_details.email,
-                phone_number__iexact=shipping_details.phone,
-                country__iexact=shipping_details.country,
-                postcode__iexact=shipping_details.postal_code,
-                town_or_city__iexact=shipping_details.city,
-                street_address1__iexact=shipping_details.line1,
-                street_address2__iexact=shipping_details.line2,
-                county__iexact=shipping_details.state,
-                grand_total=grand_total,
-            )
-            # If the order is found is set order exists to true
-            order_exists = True
+        attempt = 1
+        while attempt <= 5:
+            try:
+                order = Order.objects.get(
+                    full_name__iexact=shipping_details.name,
+                    email__iexact=shipping_details.email,
+                    phone_number__iexact=shipping_details.phone,
+                    country__iexact=shipping_details.country,
+                    postcode__iexact=shipping_details.postal_code,
+                    town_or_city__iexact=shipping_details.city,
+                    street_address1__iexact=shipping_details.line1,
+                    street_address2__iexact=shipping_details.line2,
+                    county__iexact=shipping_details.state,
+                    grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
+                )
+                order_exists = True
+                break
+            except Order.DoesNotExist:
+                attempt += 1
+                time.sleep(1)
+        if order_exists:
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
-
-        # If order doesn't exist let's create it just like it would if the form were submitted
-        except Order.DoesNotExist:
+        else:
+            order = None
             try:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
@@ -86,6 +93,8 @@ class StripeWH_Handler:
                     street_address2=shipping_details.line2,
                     county=shipping_details.state,
                     grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
                 )
                 for item_id, item_data in json.loads(bag).items():
                     product = Product.objects.get(id=item_id)
@@ -106,15 +115,14 @@ class StripeWH_Handler:
                             )
                             order_line_item.save()
             except Exception as e:
-                # if anything goes wrong the order will be deleted
                 if order:
                     order.delete()
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-
+        
         return HttpResponse(
-            content=f'Webhook received: {event["type"]}',
+            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
 
 
