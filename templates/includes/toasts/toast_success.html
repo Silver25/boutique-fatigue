@@ -27,6 +27,7 @@
                 {% for item in bag_items %}
                 <div class="row">
                     <div class="col-3 my-1"><!-- contains the product image -->
+                        <!-- updated product image tag to pass issue when adding to the bag without image -->
                         {% if item.product.image %}
                         <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                         {% else %}

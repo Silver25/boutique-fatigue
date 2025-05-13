@@ -48,6 +48,7 @@
                             <tr>
                                 <td class="p-3 w-25">
                                     <!-- template variable with double curly brackets -->
+                                    <!-- updated product image tag to pass issue when adding to the bag without image -->
                                     {% if item.product.image %}
                                     <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                     {% else %}
