@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+# Decorators are special functions that wrap around another function
+# and return a new one with some additional functionality - security
+from django.contrib.auth.decorators import login_required
 # If the query isn't blank, a special object from Jango.db.models 
 # called Q will generate a search query
 from django.db.models import Q
@@ -96,6 +99,10 @@ def product_detail(request, product_id):
     return render(request, 'products/product_detail.html', context)
 
 
+# Django first check whether the user is logged in
+# before executing the view and if not it'll redirect
+# them to the login page - securing the Admin only actions
+@login_required
 # render an empty instance of form so can be seen how it looks
 def add_product(request):
     """ Add a product to the store """
@@ -121,6 +128,7 @@ def add_product(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
     product = get_object_or_404(Product, pk=product_id)
@@ -145,6 +153,7 @@ def edit_product(request, product_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_product(request, product_id):
     """ Delete a product from the store """
     product = get_object_or_404(Product, pk=product_id)
