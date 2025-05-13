@@ -128,7 +128,7 @@ form.addEventListener('submit', function(ev) {
                     // comment out the form submission, checkout view will fail, simulates the form not
                     // to be submitted, and raise the error, 'handle only in webhook', webhook handler
                     // will catch the payment intent succeeded webhook from stripe and handle everything
-                    // form.submit();
+                    form.submit();
                 }
             }
         });
