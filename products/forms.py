@@ -7,7 +7,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        # a special dunder or double underscore string to include all the fields
+        # a special dunder or double underscore string to include
+        # all the fields from model class Product
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
