@@ -1,1 +1,1 @@
-web: gunicorn boutique-fatique.wsgi:application
+web: gunicorn boutique.wsgi:application
