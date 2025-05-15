@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'boutique-fatique-0c5f42e819fe.herokuapp.com',
-    ]
+]
 
 
 # Application definition
