@@ -137,6 +137,8 @@ WSGI_APPLICATION = 'boutique.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# When deployed on Heroku, it will use the database specified in DATABASE_URL.
+# When running locally, it defaults to SQLite.
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
